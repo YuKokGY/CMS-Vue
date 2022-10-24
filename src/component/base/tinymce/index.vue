@@ -1,12 +1,14 @@
 <template>
   <div>
-    <editor id="tinymceEditor" :key="tinymceFlag" v-model="content" :init="tinymceInit"></editor>
+    <editor id="tinymceEditor" :init="tinymceInit" v-model="content" :key="tinymceFlag"></editor>
   </div>
 </template>
 <script>
 // eslint-disable-next-line
+import tinymce from 'tinymce/tinymce'
 import Editor from '@tinymce/tinymce-vue'
 import 'tinymce/themes/silver'
+import 'tinymce/icons/default'
 import './import-all'
 
 export default {
