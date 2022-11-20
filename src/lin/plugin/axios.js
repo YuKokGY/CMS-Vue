@@ -4,7 +4,7 @@ import axios from 'axios'
 import Config from '@/config'
 import ErrorCode from '@/config/error-code'
 import store from '@/store'
-import {getToken, saveAccessToken} from '@/lin/util/token'
+import { getToken, saveAccessToken } from '@/lin/util/token'
 
 const config = {
   baseURL: Config.baseURL || process.env.apiUrl || '',
@@ -42,7 +42,7 @@ _axios.interceptors.request.use(
     // 有 API 请求重新计时
     Vue.prototype.$_lin_jump()
 
-    const reqConfig = {...originConfig}
+    const reqConfig = { ...originConfig }
 
     // step1: 容错处理
     if (!reqConfig.url) {
@@ -122,18 +122,18 @@ _axios.interceptors.request.use(
 // Add a response interceptor
 _axios.interceptors.response.use(
   async res => {
-    let {code, message} = res.data // eslint-disable-line
-    if (res.status.toString().charAt(0) === '2') {
+    let { code, message } = res.data // eslint-disable-line
+    if (code === undefined || code < 20) {
       return res.data
     }
     return new Promise(async (resolve, reject) => {
-      const {url} = res.config
+      const { url } = res.config
 
       // refreshToken相关，直接登出
       if (refreshTokenException(code)) {
         setTimeout(() => {
           store.dispatch('loginOut')
-          const {origin} = window.location
+          const { origin } = window.location
           window.location.href = origin
         }, 1500)
         return resolve(null)
@@ -195,7 +195,7 @@ _axios.interceptors.response.use(
 )
 
 // eslint-disable-next-line
-Plugin.install = function (Vue, options) {
+Plugin.install = function(Vue, options) {
   // eslint-disable-next-line
   Vue.axios = _axios
   window.axios = _axios
