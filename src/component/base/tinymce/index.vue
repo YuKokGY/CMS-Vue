@@ -5,7 +5,7 @@
 </template>
 <script>
 // eslint-disable-next-line
-import tinymce from 'tinymce/tinymce'
+import 'tinymce/tinymce'
 import Editor from '@tinymce/tinymce-vue'
 import 'tinymce/themes/silver'
 import './import-all'
